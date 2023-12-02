@@ -8,7 +8,7 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$UserInterface/RetryButton.hide()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,6 +31,8 @@ func _on_spawn_enemy_timer_timeout():
 	
 	add_child(enemy)
 	
+	enemy.squashed.connect($UserInterface/ScoreLabel._on_mob_squashed.bind())
+	
 	
 	
 	
@@ -40,3 +42,10 @@ func _on_spawn_enemy_timer_timeout():
 
 func _on_player_hit():
 	$SpawnEnemyTimer.stop()
+	$UserInterface/RetryButton.show()
+
+
+
+func _unhandled_input(event):
+	if event.is_action_pressed("ui_accept") && $UserInterface/RetryButton.visible:
+		get_tree().reload_current_scene()	

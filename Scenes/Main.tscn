@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bu13p1yl40qnv"]
+[gd_scene load_steps=12 format=3 uid="uid://bu13p1yl40qnv"]
 
 [ext_resource type="Script" path="res://Scenes/Spawn.gd" id="1_klnjm"]
 [ext_resource type="PackedScene" uid="uid://cmlutpmr8diyy" path="res://Enemy.tscn" id="2_dsuhb"]
 [ext_resource type="PackedScene" uid="uid://qsr2acntwcvw" path="res://Player.tscn" id="2_tkoq5"]
+[ext_resource type="FontFile" uid="uid://djjurt1ydr2s4" path="res://Assets/fonts/Montserrat-Medium.ttf" id="4_78fgo"]
+[ext_resource type="Script" path="res://Scenes/ScoreLabel.gd" id="5_afkxk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_l7n66"]
 size = Vector3(60, 0.001, 60)
@@ -22,6 +24,9 @@ _data = {
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0)
 }
 point_count = 5
+
+[sub_resource type="Theme" id="Theme_p76m8"]
+default_font = ExtResource("4_78fgo")
 
 [node name="Main" type="Node"]
 script = ExtResource("1_klnjm")
@@ -84,6 +89,49 @@ transform = Transform3D(0.0023417, 0, -0.999997, 0, 1, 0, 0.999997, 0, 0.0023417
 [node name="SpawnEnemyTimer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_p76m8")
+
+[node name="ScoreLabel" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 111.0
+offset_bottom = 76.0
+theme_override_colors/font_color = Color(0, 0.8, 0, 1)
+text = "Socre: 0"
+script = ExtResource("5_afkxk")
+
+[node name="RetryButton" type="ColorRect" parent="UserInterface"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0980392, 0.027451, 0.0313726, 1)
+
+[node name="Label" type="Label" parent="UserInterface/RetryButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.5
+offset_top = -12.0
+offset_right = 80.5
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Press Enter to Retry"
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="timeout" from="SpawnEnemyTimer" to="." method="_on_spawn_enemy_timer_timeout"]
