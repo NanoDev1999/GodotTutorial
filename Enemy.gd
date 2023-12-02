@@ -3,6 +3,8 @@ extends CharacterBody3D
 @export var min_speed = 10
 @export var max_speed = 20
 
+signal squashed
+
 func _physics_process(delta):		# it's going to move in a single direction at a constant speed.
 	move_and_slide()
 	
@@ -23,3 +25,7 @@ func _on_visibility_notifier_screen_exited():
 	queue_free()
 	
 
+func squash():
+	
+	squashed.emit()
+	queue_free()
