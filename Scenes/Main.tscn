@@ -85,4 +85,5 @@ transform = Transform3D(0.0023417, 0, -0.999997, 0, 1, 0, 0.999997, 0, 0.0023417
 wait_time = 0.5
 autostart = true
 
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="timeout" from="SpawnEnemyTimer" to="." method="_on_spawn_enemy_timer_timeout"]

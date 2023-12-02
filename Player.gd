@@ -10,7 +10,16 @@ extends CharacterBody3D
 
 
 
+signal hit
+
+
 var target_velocity = Vector3.ZERO		#// Vector 3 combines speed with a vector
+
+
+func die():
+	hit.emit()
+	queue_free()
+
 
 
 func _physics_process(delta):
@@ -64,3 +73,7 @@ func _physics_process(delta):
 	move_and_slide()		# moves model smoothly given the velocity
 	
 	
+
+
+func _on_enemy_detector_body_entered(body):
+	die()

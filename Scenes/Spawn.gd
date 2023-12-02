@@ -36,3 +36,7 @@ func _on_spawn_enemy_timer_timeout():
 	
 	
 	
+
+
+func _on_player_hit():
+	$SpawnEnemyTimer.stop()
