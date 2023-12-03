@@ -27,6 +27,8 @@ func _physics_process(delta):
 	
 	
 	
+	
+	
 	if Input.is_action_pressed("move_right"):
 		direction.x += 1
 	
@@ -68,6 +70,14 @@ func _physics_process(delta):
 				break
 				
 			
+			
+	if direction != Vector3.ZERO:
+		$AnimationPlayer.speed_scale = 4	# speed up the animation if they are moving
+	else:
+		$AnimationPlayer.speed_scale = 1
+		
+	if velocity.y != 0:
+		$Pivot.rotation.x = ((PI / 6) * (velocity.y / jump_impluse))	# make the pivot rotate by the jump impulse, no animation player needed here
 	
 	velocity = target_velocity
 	move_and_slide()		# moves model smoothly given the velocity

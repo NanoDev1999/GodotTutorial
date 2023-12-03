@@ -16,6 +16,8 @@ func initialize(start_position, player_position):
 	velocity = Vector3.FORWARD * random_speed
 	velocity = velocity.rotated(Vector3.UP, rotation.y)		# this accounts for the rotation, so that the velocity is corerctly angled forward
 	
+	$AnimationPlayer.speed_scale = (random_speed / min_speed)
+	
 	
 	
 	
